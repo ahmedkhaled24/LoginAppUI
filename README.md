@@ -2,7 +2,7 @@
 🚀 Brief Description of the Project
 
 ## 📸 Screenshots of the Project
-![Screenshot](images/screenshot.png)
+![Image](https://github.com/user-attachments/assets/58d99ab5-94d2-49de-be3a-3e3f2d104c1e)
 
 ## 🛠️ Technologies Used
 - Kotlin
