@@ -7,8 +7,10 @@
 ## 🛠️ Technologies Used
 - Kotlin
 - Jetpack Compose
+- Navigation with Compose
+- Konfetti Compose
 
-## 📦 How to Use the Project?
+## 📦 How to use the project?
 1. Clone the repository:
 ```bash
 git clone https://github.com/ahmedkhaled24/LoginAppUI.git
