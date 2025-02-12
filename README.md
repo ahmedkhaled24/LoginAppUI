@@ -1,5 +1,12 @@
-# Project Name
-🚀 Brief Description of the Project
+# LogingAppUI
+🚀 This is a simple **Jetpack Compose** UI-based application designed for learning and practicing **Compose UI components and navigation**. The app includes:  
+
+- A **Welcome Screen** with a button to navigate to the Login Screen.  
+- A **Login Screen** where users enter their email and password, then navigate to the Home Screen.  
+- A **Home Screen** that displays the email and password entered.  
+- A **Create Account Screen**, accessible from the Login Screen.  
+
+This project **focuses on UI only** without actual authentication logic, making it a great starting point for mastering **Jetpack Compose** and navigation. 🚀  
 
 ## 📸 Screenshots of the Project
 ![Image](https://github.com/user-attachments/assets/1c58b5a3-d626-4de9-9ae4-48f9498219e4)
