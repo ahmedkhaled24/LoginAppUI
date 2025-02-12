@@ -1,40 +1,208 @@
 package com.jetpackcompose.loginapp.ui.screen.login
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollBy
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.ime
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.jetpackcompose.loginapp.R
-import com.jetpackcompose.loginapp.ui.components.AuthenticationScreenTemplate
+import com.jetpackcompose.loginapp.ui.components.Message
+import com.jetpackcompose.loginapp.ui.components.Separator
 import com.jetpackcompose.loginapp.ui.screen.container.Screens
 import com.jetpackcompose.loginapp.ui.theme.Blue
+import com.jetpackcompose.loginapp.ui.theme.DarkTextColor
 import com.jetpackcompose.loginapp.ui.theme.Orange
 import com.jetpackcompose.loginapp.ui.theme.Purple90
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
-    AuthenticationScreenTemplate(
-        modifier = Modifier,
-        backgroundGradient = arrayOf(
-            0f to Blue,
-            1f to Orange
-        ),
-        imgRes = R.drawable.img_login,
-        title = "Welcome back!",
-        subtitle = "Please, Log In.",
-        mainActionButtonTitle = "Continue",
-        secondaryActionButtonTitle = "Create an Account",
-        mainActionButtonColors = ButtonDefaults.buttonColors(
-            containerColor = Purple90,
-            contentColor = Color.White
-        ),
-        secondaryActionButtonColors = ButtonDefaults.buttonColors(
-            containerColor = Purple90,
-            contentColor = Color.White
-        ),
-        onMainActionButtonClicked = {
-            navController.navigate(Screens.Home.route) },
-        onSecondaryActionButtonClicked = { navController.navigate(Screens.Registration.route) }
-    )
+
+    var userNameValue by remember { mutableStateOf("") }
+    var passWordValue by remember { mutableStateOf("") }
+
+    val scrollState = rememberScrollState()
+    val coroutineScope = rememberCoroutineScope()
+    val keyboardHeight = WindowInsets.ime.getBottom(LocalDensity.current)
+    val backgroundGradient = arrayOf(0f to Blue, 1f to Orange)
+
+    LaunchedEffect(keyboardHeight) {
+        coroutineScope.launch {
+            scrollState.scrollBy(keyboardHeight.toFloat())
+        }
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Brush.verticalGradient(*backgroundGradient))
+            .systemBarsPadding()
+            .verticalScroll(scrollState)
+            .imePadding(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(R.drawable.img_login),
+            contentDescription = null,
+            modifier = Modifier
+                .size(180.dp)
+                .padding(start = 30.dp)
+        )
+        Message(
+            title = "Welcome Back!",
+            subtitle = "Please, Log In"
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
+            value = userNameValue,
+            onValueChange = { userNameValue = it },
+            visualTransformation = VisualTransformation.None,
+            singleLine = true,
+            shape = RoundedCornerShape(percent = 50),
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                errorIndicatorColor = Color.Transparent,
+                focusedTextColor = DarkTextColor,
+                unfocusedTextColor = DarkTextColor,
+                unfocusedPlaceholderColor = DarkTextColor,
+                focusedPlaceholderColor = DarkTextColor,
+                focusedLeadingIconColor = DarkTextColor,
+                unfocusedLeadingIconColor = DarkTextColor,
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White
+            ),
+            textStyle = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(R.drawable.ic_person),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+            },
+            placeholder = { Text(text = "abc@example.com", color = Color.LightGray) }
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        TextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
+            value = passWordValue,
+            onValueChange = { passWordValue = it },
+            visualTransformation = VisualTransformation.None,
+            singleLine = true,
+            shape = RoundedCornerShape(percent = 50),
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = Color.Transparent,
+                disabledIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                errorIndicatorColor = Color.Transparent,
+                focusedTextColor = DarkTextColor,
+                unfocusedTextColor = DarkTextColor,
+                unfocusedPlaceholderColor = DarkTextColor,
+                focusedPlaceholderColor = DarkTextColor,
+                focusedLeadingIconColor = DarkTextColor,
+                unfocusedLeadingIconColor = DarkTextColor,
+                focusedContainerColor = Color.White,
+                unfocusedContainerColor = Color.White
+            ),
+            textStyle = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Medium),
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(R.drawable.ic_key),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+            },
+            placeholder = { Text(text = "********", color = Color.LightGray) }
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Button(
+            onClick = { navController.navigate("${Screens.Home.route}/$userNameValue/$passWordValue") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .padding(horizontal = 24.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Purple90,
+                contentColor = Color.White
+            )
+        ) {
+            Text(
+                text = "Continue",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        Separator(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 40.dp)
+                .height(62.dp)
+        )
+
+        Button(
+            onClick = { navController.navigate(Screens.Registration.route) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .padding(horizontal = 24.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Purple90,
+                contentColor = Color.White
+            )
+        ) {
+            Text(
+                text = "Create Account",
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
 }

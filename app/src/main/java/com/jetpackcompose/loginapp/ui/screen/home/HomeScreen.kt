@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -21,14 +22,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.jetpackcompose.loginapp.ui.theme.Blue
 import com.jetpackcompose.loginapp.ui.theme.Orange
 import com.jetpackcompose.loginapp.utils.KonfettiUtil
 import nl.dionsegijn.konfetti.compose.KonfettiView
 
 @Composable
-fun HomeScreen(navController: NavHostController) {
+fun HomeScreen(username: String, password: String) {
 
     val activity = (LocalContext.current as? Activity)
 
@@ -40,10 +40,29 @@ fun HomeScreen(navController: NavHostController) {
                     0f to Blue,
                     1f to Orange
                 )
-            )
+            ),
+//        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Spacer(modifier = Modifier.weight(1f))
+
+        Text(
+            text = "User name is $username",
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Medium,
+            color = Color.White
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Password is $password",
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Medium,
+            color = Color.White
+        )
+
+        Spacer(modifier = Modifier.height(32.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -82,7 +101,6 @@ fun HomeScreen(navController: NavHostController) {
             Text(
                 text = "Finish",
                 style = MaterialTheme.typography.titleMedium,
-//                color = Color.White
             )
         }
     }
