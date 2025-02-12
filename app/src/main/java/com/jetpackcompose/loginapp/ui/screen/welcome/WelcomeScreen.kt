@@ -28,7 +28,6 @@ import com.jetpackcompose.loginapp.ui.screen.container.Screens
 import com.jetpackcompose.loginapp.ui.theme.Blue
 import com.jetpackcompose.loginapp.ui.theme.DarkTextColor
 import com.jetpackcompose.loginapp.ui.theme.Orange
-import com.jetpackcompose.loginapp.ui.theme.PrimaryYellowDark
 import com.jetpackcompose.loginapp.ui.theme.Purple90
 
 @Composable
